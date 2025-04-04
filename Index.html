@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewarded Ad</title>
+    <script async src="https://www.highperformancegate.com/9167658.js" onload="adLoaded()" onerror="adLoadFailed()"></script>
+</head>
+<body>
+    <button id="adButton" onclick="showAd()" disabled>Watch Ad</button>
+
+    <script>
+        let adReady = false;
+
+        function adLoaded() {
+            if (window.RewardedInterstitial) {
+                adReady = true;
+                document.getElementById("adButton").disabled = false;
+                console.log("Ad script loaded successfully.");
+            } else {
+                console.error("Ad script loaded, but RewardedInterstitial not found.");
+            }
+        }
+
+        function adLoadFailed() {
+            console.error("Failed to load ad script.");
+        }
+
+        function showAd() {
+            if (adReady && window.RewardedInterstitial) {
+                window.RewardedInterstitial.show()
+                    .then(() => {
+                        console.log("Ad watched successfully!");
+                        alert("Thank you for watching! You've earned a reward.");
+                    })
+                    .catch(error => {
+                        console.error("Error showing ad:", error);
+                        alert("Failed to display the ad. Please try again later.");
+                    });
+            } else {
+                alert("Ad not ready. Please wait a moment and try again.");
+            }
+        }
+    </script>
+</body>
+</html>
